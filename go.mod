@@ -1,4 +1,4 @@
-module github.com/ekomobile/retrytx
+module github.com/ekomobile/retrytx/v2
 
 go 1.11
 

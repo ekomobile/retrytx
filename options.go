@@ -1,35 +1,20 @@
 package retrytx
 
 import (
-	"time"
+	"github.com/cenkalti/backoff"
 )
 
 type (
 	Options struct {
-		WithConstantBackOff     bool
-		ConstantBackOffInterval time.Duration
-		WithRetries             bool
-		MaxRetries              uint64
+		BackOff backoff.BackOff
 	}
 
 	Option func(*Options)
 )
 
-func WithMaxRetries(retries uint64) Option {
-	if retries < 0 {
-		retries = 0
-	}
-
+func WithBackOff(b backoff.BackOff) Option {
 	return func(opts *Options) {
-		opts.WithRetries = true
-		opts.MaxRetries = retries
-	}
-}
-
-func WithConstantBackOff(interval time.Duration) Option {
-	return func(opts *Options) {
-		opts.WithConstantBackOff = true
-		opts.ConstantBackOffInterval = interval
+		opts.BackOff = b
 	}
 }
 
